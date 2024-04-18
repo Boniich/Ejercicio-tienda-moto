@@ -85,9 +85,4 @@ class Cliente
 
 }
 
-
-$cliente = new Cliente("Ezequiel","Fernandez","Alta","DNI",33);
-echo $cliente;
-
-
 ?>

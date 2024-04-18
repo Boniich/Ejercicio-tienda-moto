@@ -1,19 +1,18 @@
 <?php
 
-
 class Venta
 {
     private $numero;
     private $fecha;
     private $cliente;
-    private $motos;
+    private $motos = [];
     private $precioFinal;
 
     public function __construct($numero, $fecha, $cliente, $motos, $precioFinal) {
         $this->numero = $numero;
          $this->fecha = $fecha;
          $this->cliente = $cliente;
-         $this->motos = $motos; // como insertar una coleccion de datos por constructor
+         $this->motos = $motos;
          $this->precioFinal = $precioFinal;
     }
 
@@ -44,7 +43,7 @@ class Venta
 
     public function getCliente()
     {
-        return $this->cliente
+        return $this->cliente;
     }
 
     public function setMotos($codigoMoto)
@@ -62,15 +61,25 @@ class Venta
         return $this->motos;
     }
 
+    public function getPrecioFinal()
+    {
+        return $this->precioFinal;
+    }
+
+
     public function incorporarMoto($objetoMoto)
     {
-        if($objetoMoto->estaActiva() && $this->cliente->getEstado())
-        {
-            array_push($this->moto,$objetoMoto);
-            $this->precioFinal += $objetoMoto->darPrecioVenta(); //se debe recibir el año que se sta realizando la venta
-        }
 
-        
+        if($objetoMoto->getEstaActiva() && $this->cliente->getEstado())
+        {
+            //suponiendo que $fecha y el año de fabricacion sean el año y en forma numerica
+            // fecha de venta = 2024
+            // fecha de fabricacion = 2020
+            // año = 4
+            $año = $this->fecha - $objetoMoto->getAñoFabricacion();
+            array_push($this->motos,$objetoMoto);
+            $this->precioFinal += $objetoMoto->darPrecioVenta($año); //se debe recibir el año que se sta realizando la venta
+        }
     }
 
 }

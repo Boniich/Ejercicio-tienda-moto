@@ -91,7 +91,7 @@ class Moto
 
         if($this->estaActiva)
         {
-            return $costo + $costo * ($añoVenta*$porcentajeIncrAnual);
+            return $this->costo + $this->costo * ($añoVenta*$this->porcentajeIncrAnual);
         }else{
             return 0;
         }
@@ -109,9 +109,4 @@ class Moto
                 "El Estado es: " . $this->estaActiva;
     }
 }
-
-
-$moto = new Moto(1,100,2019,"asas",45,true);
-echo $moto;
-
 ?>
