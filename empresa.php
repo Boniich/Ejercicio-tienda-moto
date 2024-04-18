@@ -80,6 +80,7 @@ class Empresa
         }
     }
 
+    //el metodo registrar aun no esta terminado pero te puede servir como un paso previo a su fase final
     public function registrarVenta($colCodigosMoto, $objCliente)
     {
             $colMotosAVender = [];
@@ -88,10 +89,18 @@ class Empresa
             foreach ($colCodigosMoto as $codMoto) {
                 $moto = $this->retornarMoto($codMoto);
 
-                if($moto->getEstaActiva()){
-                    $venta->incorporarMoto($moto);
+                //este if chequea que sea no sea nulo el objeto
+                //esto se puede dar en el caso de que te den un codigo de una moto que no tenemos registrada
+                if(!is_null($moto)){
+                    //da igual este if, porque incoporar moto ya lo tiene
+                    if($moto->getEstaActiva()){
+                        $venta->incorporarMoto($moto);
+                    }
+                    
+                }else{
+                    //no estoy seguro que esperan cuando te dan un codigo de moto que no existe, pero esta es una alternativa
+                    return "La moto ". $codMoto . " No existe";
                 }
-                
             }
 
             return $venta->getPrecioFinal();
